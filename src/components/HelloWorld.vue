@@ -4,12 +4,14 @@
 		<br>
 		<WareInfo></WareInfo>
 		
-		<b-button v-on:click="useCamera=!useCamera">{{useCamera?'Скрыть камеру	':'Отобразить камеру	'}}<b-icon icon="camera" font-scale="1.4"/></b-button><br><br>
+		<b-button v-on:click="useCamera=!useCamera">{{useCamera?'Скрыть камеру	':'Показать камеру	'}}<b-icon icon="camera" font-scale="1.4"/></b-button><br><br>
 		<StreamBarcodeReader @decode="onDecode" @loaded="onLoaded" v-show="useCamera">
 		</StreamBarcodeReader>
 		<div v-if="!useCamera">
-			<b-input type='text' v-model="searchPattern"> </b-input><br>
-			<b-button v-on:click="find(searchPattern)">Искать <b-icon icon="search" font-scale="1.4"/></b-button><br><br>
+			<div class="inputHolder">
+				<b-input placeholder="Введите запрос" type='text' v-model="searchPattern"> </b-input><br>
+				<b-button class="findBtn" v-on:click="find(searchPattern)"><b-icon icon="search" font-scale="1.4"/></b-button><br><br>
+			</div>
 			<WaresInfo></WaresInfo>
 		</div>
 		
@@ -88,12 +90,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+.findBtn{
+	height: 100%;
+    margin-top: -0.7px;
+	margin-left:2px;
+}
+.inputHolder{
+	display:flex;
+}
 .scanner-container {
 	background-color: #3a4254;
 	/*height: 30px;*/
 }
 .modal-content{
-	background-color: #3a4254;
+	background-color: #3e444a;
 	color:white;
 }
 body {

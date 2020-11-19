@@ -2,7 +2,7 @@
 <b-modal :body-bg-variant="dark" v-bind:title="WareName" :visible="modalShow" hide-footer:="true" @hidden="closeModal">
    <template>
     <div class="table-responsive">
-      <!--   <table class="table  table-sm">
+        <!-- <table class="table  table-sm">
             <colgroup>
                <col span="1" style="width: 56%;">
                <col span="1" style="width: 22%;">
@@ -17,12 +17,12 @@
             </tbody>
          </table>-->
          <b-table thead-class="d-none"  striped  dark fixed :items="ware" :fields="fields">
-            <template #table-colgroup="">
+           <!-- <template #table-colgroup="">
                <col span="#" style="width:40%">
                <col span="#" style="width:30%">
                <col span="#" style="width:15%;">
                <col span="#" style="width:15%;">
-            </template>
+            </template>-->
          </b-table>
       </div>
    </template>
@@ -31,17 +31,9 @@
 <script>
 export default {
    name: "WareInfo",
-   model: {
-        prop: 'item'
-    },
-   props: {
-        item: {
-        default: null,
-    },
-  },
 data(){
    return{
-        fields: ['Name', 'Store', 'Price', 'Remain']
+        fields: ['Store', 'Price', 'Remain']
    }
 },
   methods:{

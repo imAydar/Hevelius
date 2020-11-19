@@ -12,7 +12,7 @@
             </li>
         </ul>-->
         
-        <b-table striped hover  dark responsive :items="wares" @row-clicked="showDetails" style="word-wrap:break-word"></b-table>
+        <b-table  dark responsive :items="wares" @row-clicked="showDetails" style="word-wrap:break-word"></b-table>
                 
     </div>
 </template>

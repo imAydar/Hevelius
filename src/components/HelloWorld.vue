@@ -1,23 +1,26 @@
 <template>
 	<div class="hello">
 		<Loader />
-		<!--<WareInfo></WareInfo>-->
+		<br>
+		<WareInfo></WareInfo>
 		
-		<button v-on:click="useCamera=!useCamera">{{useCamera?'Скрыть':'Отобразить'}}</button>
+		<b-button v-on:click="useCamera=!useCamera">{{useCamera?'Скрыть камеру':'Отобразить камеру'}}</b-button>
+		<br>
 		<StreamBarcodeReader @decode="onDecode" @loaded="onLoaded" v-show="useCamera">
 		</StreamBarcodeReader>
 		<div v-if="!useCamera">
 			<input type='text' v-model="searchPattern" />
 			<button v-on:click="find(searchPattern)">искать</button>
+			<WaresInfo></WaresInfo>
 		</div>
-		<WaresInfo></WaresInfo>
+		
 	</div>
 </template>
 
 <script>
 import { StreamBarcodeReader } from "vue-barcode-reader";
 import Loader from "./Loader.vue";
-//import WareInfo from "./WareInfo.vue";
+import WareInfo from "./WareInfo.vue";
 import WaresInfo from "./WaresInfo.vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -47,6 +50,7 @@ export default {
 				})
 				.then(data => {
 					this.$store.state.ware = data;
+					this.$store.state.modalShow = true;
 				})
 				.finally(() => {
 					this.load(false);
@@ -76,7 +80,7 @@ export default {
 	components: {
 		StreamBarcodeReader,
 		Loader,
-		//WareInfo,
+		WareInfo,
 		WaresInfo
 		// store
 	}

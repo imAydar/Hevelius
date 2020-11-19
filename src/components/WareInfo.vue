@@ -1,8 +1,6 @@
 <template>
-<b-modal title="Details" :visible="modalShow" @hidden="reset">
-   <template v-if="item">
-    <h5>{{WareName}}</h5>
-    <div>heeeeey</div>
+<b-modal v-bind:title="WareName" :visible="modalShow" hide-footer:="true" @hidden="closeModal">
+   <template>
     <div class="table-responsive">
          <table class="table table-striped table-sm">
             <colgroup>
@@ -43,6 +41,11 @@ export default {
         item: {
         default: null,
     },
+  },
+  methods:{
+     closeModal(){
+        this.$store.state.modalShow = false;
+     }
   },
    computed: {
       ware() {

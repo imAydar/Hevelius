@@ -3,7 +3,7 @@
 
     
         
-       <!--<ul v-for="(item, index) in wares"
+     <!--  <ul v-for="(item, index) in wares"
             v-bind:item="item"
             v-bind:index="index"
             v-bind:key="item.Name">
@@ -11,14 +11,14 @@
                 <div v-on:click="getWareInfo(item, $event)">{{item.Name}}</div>
             </li>
         </ul>-->
-        <WareInfo v-model="currentWare"></WareInfo>
-        <b-table striped hover :items="wares" @row-clicked="showDetails"></b-table>
+        
+        <b-table striped hover  dark responsive :items="wares" @row-clicked="showDetails" style="word-wrap:break-word"></b-table>
                 
     </div>
 </template>
 
 <script>
-import {WareInfo} from "./WareInfo.vue";
+//import WareInfo from "./WareInfo.vue";
 export default {
     data() {
       return {
@@ -42,7 +42,7 @@ export default {
 				.then(data => {
                     this.$store.state.ware = data;
                   //  alert(data[0].Name);
-                    this.this.$store.state.modalShow = true;
+                   // this.$store.state.modalShow = true;
 				})
 				.finally(() => {
 					//this.load(false);
@@ -50,6 +50,9 @@ export default {
         },
         showDetails(item) {
             this.currentWare = item;
+            this.getWareInfo(item);
+            this.$store.state.modalShow = true;
+            //this.$store.state.modalShow = true;
         }
     },
     watch: {
@@ -57,8 +60,8 @@ export default {
             console.log("Current item is", value);
         }
     },
-    templates: {
-        WareInfo
+    components: {
+     //   WareInfo
     }
 }
 </script>

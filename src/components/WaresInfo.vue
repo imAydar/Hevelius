@@ -35,7 +35,7 @@ export default {
             
             console.log(item);
             console.log(item.Barecode);
-			fetch("https://utserver.pl:9090/api/Ware/" + item.Barecode)
+			fetch("https://api.mocki.io/v1/5bc16792")
 				.then(r => {
 					return r.json();
 				})

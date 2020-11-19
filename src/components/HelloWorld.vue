@@ -4,13 +4,12 @@
 		<br>
 		<WareInfo></WareInfo>
 		
-		<b-button v-on:click="useCamera=!useCamera">{{useCamera?'Скрыть камеру':'Отобразить камеру'}}</b-button>
-		<br>
+		<b-button v-on:click="useCamera=!useCamera">{{useCamera?'Скрыть камеру	':'Отобразить камеру	'}}<b-icon icon="camera" font-scale="1.4"/></b-button><br><br>
 		<StreamBarcodeReader @decode="onDecode" @loaded="onLoaded" v-show="useCamera">
 		</StreamBarcodeReader>
 		<div v-if="!useCamera">
-			<input type='text' v-model="searchPattern" />
-			<button v-on:click="find(searchPattern)">искать</button>
+			<b-input type='text' v-model="searchPattern"> </b-input><br>
+			<b-button v-on:click="find(searchPattern)">Искать <b-icon icon="search" font-scale="1.4"/></b-button><br><br>
 			<WaresInfo></WaresInfo>
 		</div>
 		
@@ -43,8 +42,8 @@ export default {
 		onDecode(result) {
 			//let vm = this;
 			this.load(true);
-			this.WareName = "";
-			fetch("https://utserver.pl:9090/api/Ware/" + result)
+			this.WareName = result;
+			fetch("https://api.mocki.io/v1/5bc16792")
 				.then(r => {
 					return r.json();
 				})
@@ -63,14 +62,14 @@ export default {
 		},
 		find(pattern){
 			this.load(true);
-			this.WareName = "";
-			fetch("https://utserver.pl:9090/api/find/" + pattern)
+			this.WareName = pattern;
+			fetch("https://api.mocki.io/v1/40846667")
 				.then(r => {
 					return r.json();
 				})
 				.then(data => {
 					//this.$store.state.rows = data;
-					this.$store.state.wares = data
+					this.$store.state.wares = data;
 				})
 				.finally(() => {
 					this.load(false);
@@ -92,6 +91,10 @@ export default {
 .scanner-container {
 	background-color: #3a4254;
 	/*height: 30px;*/
+}
+.modal-content{
+	background-color: #3a4254;
+	color:white;
 }
 body {
 	background-color: #3a4254;

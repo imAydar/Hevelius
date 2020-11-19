@@ -1,32 +1,29 @@
 <template>
-<b-modal v-bind:title="WareName" :visible="modalShow" hide-footer:="true" @hidden="closeModal">
+<b-modal :body-bg-variant="dark" v-bind:title="WareName" :visible="modalShow" hide-footer:="true" @hidden="closeModal">
    <template>
     <div class="table-responsive">
-         <table class="table table-striped table-sm">
+      <!--   <table class="table  table-sm">
             <colgroup>
-             <!--  <col span="1" style="width: 56%;">
-               <col span="1" style="width: 22%;">
-               <col span="1" style="width: 10%;">
-               <col span="1" style="width: 12%;">-->
                <col span="1" style="width: 56%;">
                <col span="1" style="width: 22%;">
                <col span="1" style="width: 22%;">
             </colgroup>
             <tbody id="tbody">
-             <!-- <th>
-                <td>Наименование</td>
-               <td>Магазин</td>
-               <td>Остаток</td>
-               <td>Цена</td>
-              </th>-->
             <tr v-for="(item, index) in ware" v-bind:key="index">
-            <!--   <td>{{item.Name}}</td>-->
                <td>{{item.Store}}</td>
                <td>{{item.Remain}} шт.</td>
                <td>{{item.Price}} руб.</td>
             </tr>
             </tbody>
-         </table>
+         </table>-->
+         <b-table thead-class="d-none"  striped  dark fixed :items="ware" :fields="fields">
+            <template #table-colgroup="">
+               <col span="#" style="width:40%">
+               <col span="#" style="width:30%">
+               <col span="#" style="width:15%;">
+               <col span="#" style="width:15%;">
+            </template>
+         </b-table>
       </div>
    </template>
 </b-modal>
@@ -42,6 +39,11 @@ export default {
         default: null,
     },
   },
+data(){
+   return{
+        fields: ['Name', 'Store', 'Price', 'Remain']
+   }
+},
   methods:{
      closeModal(){
         this.$store.state.modalShow = false;
@@ -63,31 +65,31 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style >
 h5 {
    margin: 40px 0 0;
    color:white;
    }
-   tr{
-   color: #42b983;
-   }
    .table-responsive{
    background-color: #3a4254;
    }
-   table{
+   .modal-body{
+      padding: 0.1rem!important;
+   }
+  /*.modal-body{
+      padding: 0!important;
+   }*/
+   /*table{
    width: 100%;  
    table-layout: fixed;
    word-wrap: break-word;
    }
    table td{
      text-align: left;
-   /*border-bottom: 1px solid #dee2e6;*/
    border-right: 1px solid #4e4f50;
-   /*text-align:left;
-       LINE-BREAK: unset;*/
    }
    .table-sm td{
    padding:1px;
    font-size: 15.4px;
-   }
+   }*/
 </style>

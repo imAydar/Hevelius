@@ -1,75 +1,69 @@
 <template>
-<div>
-    <h5>{{WareName}}</h5>
-    <div class="table-responsive">
-         <table class="table table-striped table-sm">
-            <colgroup>
-             <!--  <col span="1" style="width: 56%;">
-               <col span="1" style="width: 22%;">
-               <col span="1" style="width: 10%;">
-               <col span="1" style="width: 12%;">-->
-               <col span="1" style="width: 56%;">
-               <col span="1" style="width: 22%;">
-               <col span="1" style="width: 22%;">
-            </colgroup>
-            <tbody id="tbody">
-             <!-- <th>
-                <td>Наименование</td>
-               <td>Магазин</td>
-               <td>Остаток</td>
-               <td>Цена</td>
-              </th>-->
-            <tr v-for="(item, index) in rows" v-bind:key="index">
-            <!--   <td>{{item.Name}}</td>-->
-               <td>{{item.Store}}</td>
-               <td>{{item.Remain}} шт.</td>
-               <td>{{item.Price}} руб.</td>
-            </tr>
-            </tbody>
-         </table>
-      </div>
-</div>
+    <div class="WareList">
+
+    
+        
+       <!--<ul v-for="(item, index) in wares"
+            v-bind:item="item"
+            v-bind:index="index"
+            v-bind:key="item.Name">
+            <li >
+                <div v-on:click="getWareInfo(item, $event)">{{item.Name}}</div>
+            </li>
+        </ul>-->
+        <WareInfo v-model="currentWare"></WareInfo>
+        <b-table striped hover :items="wares" @row-clicked="showDetails"></b-table>
+                
+    </div>
 </template>
+
 <script>
+import {WareInfo} from "./WareInfo.vue";
 export default {
-    computed: {
-    rows() {
-      return this.$store.state.rows;
+    data() {
+      return {
+        currentWare: null
+      }
     },
-    WareName(){
-        if(this.$store.state.rows.length > 0)
-           return this.$store.state.rows[0].Name;
-        else
-            return "";
+    computed: {
+      wares() {
+         return this.$store.state.wares;
+      },
+    },
+    methods: {
+        getWareInfo(item){
+            
+            console.log(item);
+            console.log(item.Barecode);
+			fetch("https://utserver.pl:9090/api/Ware/" + item.Barecode)
+				.then(r => {
+					return r.json();
+				})
+				.then(data => {
+                    this.$store.state.ware = data;
+                  //  alert(data[0].Name);
+                    this.this.$store.state.modalShow = true;
+				})
+				.finally(() => {
+					//this.load(false);
+				});
+        },
+        showDetails(item) {
+            this.currentWare = item;
+        }
+    },
+    watch: {
+        currentItem(value) {
+            console.log("Current item is", value);
+        }
+    },
+    templates: {
+        WareInfo
     }
-  }
 }
 </script>
 <style scoped>
-h5 {
-   margin: 40px 0 0;
-   color:white;
-   }
-   tr{
-   color: #42b983;
-   }
-   .table-responsive{
-   background-color: #3a4254;
-   }
-   table{
-   width: 100%;  
-   table-layout: fixed;
-   word-wrap: break-word;
-   }
-   table td{
-     text-align: left;
-   /*border-bottom: 1px solid #dee2e6;*/
-   border-right: 1px solid #4e4f50;
-   /*text-align:left;
-       LINE-BREAK: unset;*/
-   }
-   .table-sm td{
-   padding:1px;
-   font-size: 15.4px;
-   }
+.WareList{
+    background: wheat;
+}
 </style>

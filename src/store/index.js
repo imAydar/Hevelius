@@ -6,8 +6,11 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state:{
-        rows: {},
-        count: 10
+        ware: {},
+        wares:{},
+        count: 10,
+        isCameraLoading: true,
+        modalShow:false
     },
     getters:{
         getCount: state => {

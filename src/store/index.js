@@ -10,7 +10,8 @@ export const store = new Vuex.Store({
         wares:{},
         count: 10,
         isCameraLoading: true,
-        modalShow:false
+        modalShow:false,
+        showLoader:true
     },
     getters:{
         getCount: state => {

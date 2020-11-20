@@ -1,5 +1,5 @@
 <template>
-<b-modal :body-bg-variant="dark" v-bind:title="WareName" :visible="modalShow" hide-footer:="true" @hidden="closeModal">
+<b-modal  v-bind:title="WareName" :visible="modalShow" hide-footer:="true" @hidden="closeModal">
    <template>
     <div class="table-responsive">
         <!-- <table class="table  table-sm">
@@ -16,13 +16,12 @@
             </tr>
             </tbody>
          </table>-->
-         <b-table thead-class="d-none"  striped  dark fixed :items="ware" :fields="fields">
-           <!-- <template #table-colgroup="">
+         <b-table class="text-left" thead-class="d-none"  striped  dark fixed :items="ware" :fields="fields">
+            <template #table-colgroup="">
                <col span="#" style="width:40%">
-               <col span="#" style="width:30%">
-               <col span="#" style="width:15%;">
-               <col span="#" style="width:15%;">
-            </template>-->
+               <col span="#" style="width:30%;">
+               <col span="#" style="width:30%;">
+            </template>
          </b-table>
       </div>
    </template>

@@ -12,7 +12,7 @@
             </li>
         </ul>-->
         
-        <b-table  dark responsive :items="wares" @row-clicked="showDetails" style="word-wrap:break-word"></b-table>
+        <b-table class="text-left" striped dark responsive :items="wares" @row-clicked="showDetails" style="word-wrap:break-word"></b-table>
                 
     </div>
 </template>
@@ -35,12 +35,14 @@ export default {
             
             console.log(item);
             console.log(item.Barecode);
-			fetch("https://api.mocki.io/v1/5bc16792")
+            this.$store.state.showLoader = true;
+			fetch("https://192.168.200.110:9090/api/ware/" + item.Barecode)
 				.then(r => {
 					return r.json();
 				})
 				.then(data => {
                     this.$store.state.ware = data;
+                    this.$store.state.showLoader = false;
                   //  alert(data[0].Name);
                    // this.$store.state.modalShow = true;
 				})

@@ -9,7 +9,7 @@
 		</StreamBarcodeReader>
 		<div v-if="!useCamera">
 			<div class="inputHolder">
-				<b-input placeholder="Введите запрос" type='text' v-model="searchPattern"> </b-input><br>
+				<b-input placeholder="Введите запрос" type='text' v-model="searchPattern" v-on:keyup.enter="find(searchPattern)"> </b-input><br>
 				<b-button class="findBtn" v-on:click="find(searchPattern)"><b-icon icon="search" font-scale="1.4"/></b-button><br><br>
 			</div>
 			<WaresInfo></WaresInfo>
@@ -45,7 +45,7 @@ export default {
 			//let vm = this;
 			this.load(true);
 			this.WareName = result;
-			fetch("https://api.mocki.io/v1/5bc16792")
+			fetch("https://192.168.200.110:9090/api/ware/" + result)
 				.then(r => {
 					return r.json();
 				})
@@ -59,13 +59,17 @@ export default {
 		},
 		load(stop) {
 			//in case there'd be more code
-			if (stop) document.getElementById("loader").style.display = "";
-			else document.getElementById("loader").style.display = "none";
+			if (stop) {
+				this.$store.state.showLoader = stop;
+			}
+			else {
+				this.$store.state.showLoader = stop;
+			}
 		},
 		find(pattern){
 			this.load(true);
 			this.WareName = pattern;
-			fetch("https://api.mocki.io/v1/40846667")
+			fetch("https://192.168.200.110:9090/api/find/" + pattern)
 				.then(r => {
 					return r.json();
 				})

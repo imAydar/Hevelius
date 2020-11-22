@@ -13,10 +13,8 @@ import { BrowserMultiFormatReader, Exception } from "@zxing/library";
 
 export default {
     name: "stream-barcode-reader",
-
     data() {
         return {
-            //isLoading: true,
             codeReader: new BrowserMultiFormatReader(),
             isMediaStreamAPISupported:
                 navigator &&
@@ -24,21 +22,22 @@ export default {
                 "enumerateDevices" in navigator.mediaDevices
         };
     },
-    computed:{
+    computed: {
         isLoading(){
-            return this.$store.state.isCameraLoading;
+            return this.$store.getters.isCameraLoading;
         }
     },
     mounted() {
+        this.$store.dispatch('isCameraLoading', true);
         if (!this.isMediaStreamAPISupported) {
+            alert('couldnt');
+            this.$store.dispatch('isCameraLoading', false);
             throw new Exception("Media Stream API is not supported");
-            return;
         }
-
         this.start();
-        this.$refs.scanner.oncanplay = event => {
-            this.isLoading = false;
+        this.$refs.scanner.oncanplay = () =>{
             this.$emit("loaded");
+            this.$store.dispatch('isCameraLoading', false);
         };
     },
 
@@ -52,6 +51,7 @@ export default {
                 undefined,
                 this.$refs.scanner,
                 (result, err) => {
+                    console.log(err);
                     if (result) {
                         this.$emit("decode", result.text);
                     }

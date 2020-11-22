@@ -30,11 +30,11 @@
 <script>
 export default {
    name: "WareInfo",
-data(){
-   return{
+   data(){
+      return{
         fields: ['Store', 'Price', 'Remain']
-   }
-},
+      }
+   },
   methods:{
      closeModal(){
         this.$store.state.modalShow = false;
@@ -42,7 +42,7 @@ data(){
   },
    computed: {
       ware() {
-         return this.$store.state.ware;
+         return this.$store.getters.getWare;
       },
    WareName(){
         if(this.$store.state.ware.length > 0)

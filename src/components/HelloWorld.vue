@@ -3,7 +3,6 @@
 		<Loader />
 		<br>
 		<WareInfo></WareInfo>
-		
 		<b-button v-on:click="useCamera=!useCamera">{{useCamera?'Скрыть камеру	':'Показать камеру	'}}<b-icon icon="camera" font-scale="1.4"/></b-button><br><br>
 		<StreamBarcodeReader @decode="onDecode" @loaded="onLoaded" v-show="useCamera">
 		</StreamBarcodeReader>
@@ -14,12 +13,11 @@
 			</div>
 			<WaresInfo></WaresInfo>
 		</div>
-		
 	</div>
 </template>
 
 <script>
-import { StreamBarcodeReader } from "vue-barcode-reader";
+import StreamBarcodeReader from "./StreamBarcodeReader.vue";
 import Loader from "./Loader.vue";
 import WareInfo from "./WareInfo.vue";
 import WaresInfo from "./WaresInfo.vue";
@@ -33,53 +31,17 @@ export default {
 			searchPattern:""
 		}
 	},
-	mounted: function() {
-		if(this.$store.state.isCameraLoading)
-			this.load(true);
-	},
+	/*mounted: function() {
+	},*/
 	methods: {
 		onLoaded() {
-			this.load(false);
+			this.$store.dispatch('showLoader', false);
 		},
-		onDecode(result) {
-			//let vm = this;
-			this.load(true);
-			this.WareName = result;
-			fetch("https://192.168.200.110:9090/api/ware/" + result)
-				.then(r => {
-					return r.json();
-				})
-				.then(data => {
-					this.$store.state.ware = data;
-					this.$store.state.modalShow = true;
-				})
-				.finally(() => {
-					this.load(false);
-				});
-		},
-		load(stop) {
-			//in case there'd be more code
-			if (stop) {
-				this.$store.state.showLoader = stop;
-			}
-			else {
-				this.$store.state.showLoader = stop;
-			}
+		onDecode(barcode) {
+			this.$store.dispatch('getWareInfo', barcode);
 		},
 		find(pattern){
-			this.load(true);
-			this.WareName = pattern;
-			fetch("https://192.168.200.110:9090/api/find/" + pattern)
-				.then(r => {
-					return r.json();
-				})
-				.then(data => {
-					//this.$store.state.rows = data;
-					this.$store.state.wares = data;
-				})
-				.finally(() => {
-					this.load(false);
-				});
+			this.$store.dispatch('findWares', {pattern: pattern});
 		}
 	},
 	components: {
@@ -87,7 +49,6 @@ export default {
 		Loader,
 		WareInfo,
 		WaresInfo
-		// store
 	}
 };
 </script>

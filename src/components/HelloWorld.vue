@@ -40,8 +40,8 @@ export default {
 		onDecode(barcode) {
 			this.$store.dispatch('getWareInfo', barcode);
 		},
-		find(pattern){
-			this.$store.dispatch('findWares', {pattern: pattern});
+		find(query){
+			this.$store.dispatch('findWares', query);
 		}
 	},
 	components: {

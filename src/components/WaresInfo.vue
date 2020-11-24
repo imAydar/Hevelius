@@ -27,7 +27,8 @@ export default {
     },
     methods: {
         showDetails(item) {
-             this.$store.dispatch('getWareInfo', item.Barcode);
+            console.log(item.Barecode);
+             this.$store.dispatch('getWareInfo', item.Barecode);
         }
     },
     watch: {

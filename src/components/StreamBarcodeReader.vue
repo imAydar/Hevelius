@@ -1,6 +1,6 @@
 <template>
-    <div class="scanner-container">
-        <div v-show="!isLoading">
+    <div v-show="!isLoading" class="scanner-container">
+        <div >
             <video poster="data:image/gif,AAAA" ref="scanner"></video>
             <div class="overlay-element"></div>
             <div class="laser"></div>
@@ -30,7 +30,6 @@ export default {
     mounted() {
         this.$store.dispatch('isCameraLoading', true);
         if (!this.isMediaStreamAPISupported) {
-            alert('couldnt');
             this.$store.dispatch('isCameraLoading', false);
             throw new Exception("Media Stream API is not supported");
         }

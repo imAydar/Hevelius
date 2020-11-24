@@ -1,10 +1,13 @@
 {
-  "name": "shit",
+  "name": "hevelius",
   "version": "0.1.0",
+  "homepage": "https://plmail.ru/barcode",
   "private": true,
+
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-plmail": "set PUBLIC_URL=https://plmail.ru/barcode&&vue-cli-service build --dest ./dist/barcode",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

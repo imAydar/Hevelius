@@ -7,11 +7,6 @@ export default {
     load(){
       return this.$store.state.showLoader;
     }
-  },
-  watch:{
-    load(newvalue, oldvalue){
-      console.log(newvalue + " " + oldvalue);
-    }
   }
 }
 </script>

@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
         ware: {},
         wares: {},
         count: 10,
-        isCameraLoading: true,
+        isCameraLoading: false,
         modalShow: false,
         showLoader: true
     },
@@ -49,9 +49,8 @@ export const store = new Vuex.Store({
     },
     actions: {
         getWareInfo(context, barcode) {
-            console.log(barcode);
             context.commit('showLoader', true);
-            fetch("https://api.mocki.io/v1/5bc16792")
+            fetch("https://plmail.ru:9090/api/ware/" + barcode)
                 .then(r => {
                     return r.json();
                 })
@@ -62,19 +61,21 @@ export const store = new Vuex.Store({
                 })
                 .finally(() => {
                     context.commit('showLoader', false);
+                    console.log("https://plmail.ru:9090/api/ware/" + barcode);
                 });
         },
         findWares(context, query) {
-            console.log(query);
             context.commit('showLoader', true);
-            fetch("https://api.mocki.io/v1/40846667")
+            fetch("https://plmail.ru:9090/api/find/" + query)
                 .then(r => {
                     return r.json();
                 })
                 .then(data => {
+                    
                     context.commit('setCurrentWares', data);
                 })
                 .finally(() => {
+                    console.log("https://plmail.ru/api/find/" + query);
                     context.commit('showLoader', false);
                 });
         },

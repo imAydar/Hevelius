@@ -1,4 +1,3 @@
-# shit
 
 ## Project setup
 ```

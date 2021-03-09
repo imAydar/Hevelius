@@ -1,1 +1,1 @@
-![gif](/public/gitAssests/main.gif)
+![gif](/public/gitAssets/main.gif)
